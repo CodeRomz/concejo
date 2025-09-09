@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+  <!-- Page-scoped CSS: nudge the runtime autocomplete menu ~50px on /slides/all ONLY -->
+  <template id="courses_all_dropdown_offset"
+            inherit_id="website_slides.courses_all"
+            name="Courses All - Dropdown Offset">
+    <xpath expr="//div[@id='wrap']" position="inside">
+      <style type="text/css">
+        .o_dropdown_menu.show { margin-top: 50px !important; }
+        .dropdown-menu[data-bs-popper].show { margin-top: 50px !important; }
+      </style>
+    </xpath>
+  </template>
+</odoo>

@@ -2,33 +2,38 @@
 {
     'name': "concejo",
 
-    'summary': "Short (1 phrase/line) summary of the module's purpose",
+    'summary': "Concejo DMS Patch",
 
     'description': """
-Long description of module's purpose
     """,
 
-    'author': "My Company",
-    'website': "https://www.yourcompany.com",
+    'author': "Romualdo Jr",
+    'website': "https://github.com/coderomz/concejo",
 
-    # Categories can be used to filter modules in modules listing
-    # Check https://github.com/odoo/odoo/blob/15.0/odoo/addons/base/data/ir_module_category_data.xml
-    # for the full list
-    'category': 'Uncategorized',
-    'version': '0.1',
+    'license': 'AGLP-3',
+    'version': '18.0.1.0.0',
+
+    'category': 'Website',
 
     # any module necessary for this one to work correctly
-    'depends': ['base'],
+    'depends': ['website_slides'],
 
     # always loaded
     'data': [
         # 'security/ir.model.access.csv',
-        'views/views.xml',
-        'views/templates.xml',
+        'views/advance_search_templates.xml',
+        'views/courses_all_bodyclass.xml',
+        'views/res_users.xml'
     ],
-    # only loaded in demonstration mode
-    'demo': [
-        'demo/demo.xml',
-    ],
+
+    'assets': {
+        'web.assets_frontend': [
+            'concejo/static/src/scss/concejo_style_frontend.scss',
+        ]
+    },
+
+    "installable": True,
+    "application": True,
+
 }
 
