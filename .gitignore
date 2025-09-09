@@ -1,0 +1,71 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# PyCharm
+.idea/
+*.iml
+
+# Virtual environments
+venv/
+ENV/
+env/
+.venv/
+
+# macOS
+.DS_Store
+
+# Windows
+Thumbs.db
+ehthumbs.db
+
+# Logs and databases
+*.log
+*.pot
+*.mo
+*.sqlite3
+*.db
+
+# Python egg metadata
+*.egg-info/
+*.egg
+
+# Unit test / coverage
+.coverage
+.tox/
+.nox/
+.pytest_cache/
+nosetests.xml
+coverage.xml
+*.cover
+.hypothesis/
+
+# Distribution
+build/
+dist/
+*.egg-info/
+
+# Odoo specifics
+*.zip
+*.swp
+*.bak
+*.tmp
+*.~*
+*.~.xml
+*.log
+*.xlsx
+*.docx
+*.pdf
+*.gitignore
+
+# Certificates and secrets
+*.pem
+*.key
+secrets.env
+.env
+.env.*
+
+# System
+.idea/
+

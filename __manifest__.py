@@ -10,7 +10,7 @@
     'author': "Romualdo Jr",
     'website': "https://github.com/coderomz/concejo",
 
-    'license': 'AGLP',
+    'license': 'LGPL-3',
     'version': '18.0.1.0.0',
 
     'category': 'Website',
