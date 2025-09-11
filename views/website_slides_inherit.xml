@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
 
-  <!-- 1) Header + search: Courses -> Documents; Search courses -> Search documents -->
+  <!-- 1) Header + search: Courses -> Documents; "Search courses" -> "Search documents" -->
   <template id="concejo_course_nav_docs" inherit_id="website_slides.course_nav">
-    <!-- Breadcrumb anchor (desktop) -->
-    <xpath expr="//nav[@aria-label='breadcrumb']//a[@href='/slides']" position="replace">
+    <!-- Breadcrumb anchor (scope via the .breadcrumb list; no aria-label selector) -->
+    <xpath expr="//ol[contains(concat(' ', normalize-space(@class), ' '), ' breadcrumb ')]//a[@href='/slides']" position="replace">
       <a href="/slides" title="Documents">Documents</a>
     </xpath>
-    <!-- Search placeholders (desktop + mobile blocks in this template) -->
+    <!-- Replace all placeholder setters in this template -->
     <xpath expr="//t[@t-set='placeholder']" position="replace">
       <t t-set="placeholder">Search documents</t>
     </xpath>
   </template>
 
-  <!-- 2) Generic join link used by utils template -->
+  <!-- 2) Generic join link used in utils -->
   <template id="concejo_join_course_link_docs" inherit_id="website_slides.join_course_link">
     <xpath expr="//a[contains(concat(' ', normalize-space(@class), ' '), ' o_wslides_js_course_join_link ')]" position="replace">
       <a class="o_wslides_js_course_join_link" href="#"
@@ -26,7 +26,7 @@
 
   <!-- 3) Sidebar CTA, enrolled text, lock banners, prerequisites link -->
   <template id="concejo_course_join_cta_docs" inherit_id="website_slides.course_join">
-    <!-- CTA title/aria (applies to the main CTA and the small 'join anyway' link) -->
+    <!-- CTA title/aria only (preserve all data-* and classes) -->
     <xpath expr="//a[contains(concat(' ', normalize-space(@class), ' '), ' o_wslides_js_course_join_link ')]" position="attributes">
       <attribute name="title">Access the Documents</attribute>
       <attribute name="aria-label">Access the Documents</attribute>
@@ -39,11 +39,11 @@
     <xpath expr="//span[normalize-space()='Course Locked']" position="replace">
       <span>Documents Locked</span>
     </xpath>
-    <!-- Enrolled banner -->
+    <!-- "You're enrolled" banner text -->
     <xpath expr="//button[contains(concat(' ', normalize-space(@class), ' '), ' o_wslides_js_channel_unsubscribe ')]//h6" position="replace">
       <h6 class="d-flex flex-grow-1 my-0">You have access to these documents</h6>
     </xpath>
-    <!-- Prerequisites link (“courses” -> “documents”) -->
+    <!-- Prerequisites inline link word (“courses” -> “documents”) -->
     <xpath expr="//a[contains(concat(' ', normalize-space(@class), ' '), ' o_wslides_js_prerequisite_course ')]" position="replace">
       <a href="#" class="o_wslides_js_prerequisite_course"
          t-att-data-channels="json.dumps(
