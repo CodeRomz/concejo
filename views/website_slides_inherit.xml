@@ -3,56 +3,68 @@
 
   <!-- 1) Header + search: "Courses" ➜ "Documents"; "Search courses" ➜ "Search documents" -->
   <template id="concejo_course_nav_docs" inherit_id="website_slides.course_nav">
-    <!-- Breadcrumb link text -->
-    <xpath expr="//nav//a[@href='/slides']/text()" position="replace">Documents</xpath>
-    <!-- Breadcrumb link title -->
-    <xpath expr="//nav//a[@href='/slides']" position="attributes">
-      <attribute name="title">Documents</attribute>
+    <!-- Replace the breadcrumb anchor entirely (keeps href) -->
+    <xpath expr="//nav//a[@href='/slides']" position="replace">
+      <a href="/slides" title="Documents">Documents</a>
     </xpath>
-    <!-- Search box placeholder -->
-    <xpath expr="//t[@t-set='placeholder']/text()" position="replace">Search documents</xpath>
+    <!-- Replace the placeholder setter element safely -->
+    <xpath expr="//t[@t-set='placeholder']" position="replace">
+      <t t-set="placeholder">Search documents</t>
+    </xpath>
   </template>
 
-  <!-- 2) Generic join link used in various contexts -->
+  <!-- 2) Generic join link (used in utils template) -->
   <template id="concejo_join_course_link_docs" inherit_id="website_slides.join_course_link">
-    <xpath expr="//a[contains(@class,'o_wslides_js_course_join_link')]/text()" position="replace">
-      Access the Documents
+    <!-- Replace the full anchor, preserving dynamic data-* bindings -->
+    <xpath expr="//a[@class='o_wslides_js_course_join_link']" position="replace">
+      <a class="o_wslides_js_course_join_link" href="#"
+         t-att-data-channel-enroll="slide.channel_id.enroll"
+         t-att-data-channel-id="slide.channel_id.id">Access the Documents</a>
     </xpath>
   </template>
 
-  <!-- 3) Sidebar CTA block on the course/documents page -->
+  <!-- 3) Sidebar CTA + membership text -->
   <template id="concejo_course_join_cta_docs" inherit_id="website_slides.course_join">
-    <!-- Update CTA title and aria-label while preserving data-* and classes -->
+    <!-- Keep all data-*; only adjust title/aria for accessibility -->
     <xpath expr="//a[contains(@class,'o_wslides_js_course_join_link')]" position="attributes">
       <attribute name="title">Access the Documents</attribute>
       <attribute name="aria-label">Access the Documents</attribute>
     </xpath>
-    <!-- Replace the visible CTA label (covers both “Start this Course” / “Join this Course”) -->
+    <!-- Replace visible CTA label span -->
     <xpath expr="//a[contains(@class,'o_wslides_js_course_join_link')]//span[contains(@class,'cta-title')]" position="replace">
       <span class="cta-title text_small_caps">Access the Documents</span>
     </xpath>
-    <!-- "Course Locked" banners (there are two occurrences in this template) -->
-    <xpath expr="//span[text()='Course Locked']/text()" position="replace">Documents Locked</xpath>
-    <!-- "You're enrolled" banner when already a member -->
-    <xpath expr="//button[contains(@class,'o_wslides_js_channel_unsubscribe')]//h6/text()" position="replace">
-      You have access to these documents
+    <!-- Replace both occurrences of "Course Locked" by selecting the span element (not its text node) -->
+    <xpath expr="//span[normalize-space()='Course Locked']" position="replace">
+      <span>Documents Locked</span>
+    </xpath>
+    <!-- "You're enrolled" banner text when user is already a member -->
+    <xpath expr="//button[contains(@class,'o_wslides_js_channel_unsubscribe')]//h6" position="replace">
+      <h6 class="d-flex flex-grow-1 my-0">You have access to these documents</h6>
     </xpath>
   </template>
 
-  <!-- 4) Main page strings: error/invite/prereq wording and the “Course” tab label -->
-  <template id="concejo_course_main_text_docs" inherit_id="website_slides.course_main">
-    <!-- Access error banner: keep the trailing quote and the t-out name -->
-    <xpath expr="//div[contains(@class,'alert-danger')]/text()[contains(., 'You need to join this course')]" position="replace">
-      You need access to these documents to open "
+  <!-- 4) Tab label + prerequisites word on the main page -->
+  <template id="concejo_course_main_docs" inherit_id="website_slides.course_main">
+    <!-- Replace the whole tab anchor with identical bindings + new text -->
+    <xpath expr="//a[@id='home-tab']" position="replace">
+      <a t-att-class="'nav-link %s' % ('active' if active_tab == 'home' else '')"
+         id="home-tab" data-bs-toggle="pill" href="#home" role="tab" aria-controls="home"
+         t-att-aria-selected="'true' if active_tab == 'home' else 'false'">
+        <i class="fa fa-home"/> Documents
+      </a>
     </xpath>
-    <!-- Invite banner lead-in text -->
-    <xpath expr="//div[contains(@class,'notification_banner')]/text()[contains(., 'You have been invited to this course.')]" position="replace">
-      You have been invited to these documents.
+
+    <!-- Replace the prerequisites inline link, preserving data payload -->
+    <xpath expr="//a[contains(@class,'o_wslides_js_prerequisite_course')]" position="replace">
+      <a href="#" class="o_wslides_js_prerequisite_course"
+         t-att-data-channels="json.dumps(
+           [{'course_id': course.id, 'course_name': course.name}
+            for course in channel.prerequisite_channel_ids]
+         )">
+        documents
+      </a>
     </xpath>
-    <!-- Prerequisite link word (“courses” → “documents”) -->
-    <xpath expr="//a[contains(@class,'o_wslides_js_prerequisite_course')]/text()" position="replace">documents</xpath>
-    <!-- Tab label text (“Course” → “Documents”), leaves the icon intact -->
-    <xpath expr="//a[@id='home-tab']/text()[normalize-space()='Course']" position="replace">Documents</xpath>
   </template>
 
 </odoo>
