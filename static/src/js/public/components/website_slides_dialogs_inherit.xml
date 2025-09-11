@@ -41,10 +41,10 @@
 
     <!-- Leave confirmation texts -->
     <xpath expr="//t[contains(@t-if,'state.mode') and contains(@t-if,'leave')]/p[1]" position="replace">
-      <p>Do you really want to leave these documents?</p>
+      <p>Do you really want to leave these module?</p>
     </xpath>
     <xpath expr="//t[contains(@t-if,'state.mode') and contains(@t-if,'leave')]/p[2]" position="replace">
-      <p>All progress will be lost until you rejoin these documents.</p>
+      <p>All progress will be lost until you rejoin these module.</p>
     </xpath>
 
     <!-- Footer buttons -->
