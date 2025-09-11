@@ -16,6 +16,7 @@
     'depends': ['website_slides'],
 
     'data': [
+        'views/website_slides_inherit.xml',
         'views/advance_search_templates.xml',
         'views/courses_all_bodyclass.xml',
         'views/res_users.xml'

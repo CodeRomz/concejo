@@ -3,51 +3,55 @@
 
   <!-- 1) Header + search: "Courses" ➜ "Documents"; "Search courses" ➜ "Search documents" -->
   <template id="concejo_course_nav_docs" inherit_id="website_slides.course_nav">
-    <!-- Breadcrumb link -->
+    <!-- Breadcrumb link text -->
     <xpath expr="//nav//a[@href='/slides']/text()" position="replace">Documents</xpath>
+    <!-- Breadcrumb link title -->
     <xpath expr="//nav//a[@href='/slides']" position="attributes">
       <attribute name="title">Documents</attribute>
     </xpath>
-    <!-- Search placeholder -->
+    <!-- Search box placeholder -->
     <xpath expr="//t[@t-set='placeholder']/text()" position="replace">Search documents</xpath>
   </template>
 
-  <!-- 2) Generic join link used from various places -->
+  <!-- 2) Generic join link used in various contexts -->
   <template id="concejo_join_course_link_docs" inherit_id="website_slides.join_course_link">
     <xpath expr="//a[contains(@class,'o_wslides_js_course_join_link')]/text()" position="replace">
       Access the Documents
     </xpath>
   </template>
 
-  <!-- 3) Sidebar CTA block on the course (documents) page -->
+  <!-- 3) Sidebar CTA block on the course/documents page -->
   <template id="concejo_course_join_cta_docs" inherit_id="website_slides.course_join">
-    <!-- Button attributes -->
+    <!-- Update CTA title and aria-label while preserving data-* and classes -->
     <xpath expr="//a[contains(@class,'o_wslides_js_course_join_link')]" position="attributes">
       <attribute name="title">Access the Documents</attribute>
       <attribute name="aria-label">Access the Documents</attribute>
     </xpath>
-    <!-- Button label (covers both 'Start this Course' and 'Join this Course') -->
-    <xpath expr="//span[contains(@class,'cta-title')]" position="replace">
+    <!-- Replace the visible CTA label (covers both “Start this Course” / “Join this Course”) -->
+    <xpath expr="//a[contains(@class,'o_wslides_js_course_join_link')]//span[contains(@class,'cta-title')]" position="replace">
       <span class="cta-title text_small_caps">Access the Documents</span>
     </xpath>
-    <!-- Lock banner title -->
+    <!-- "Course Locked" banners (there are two occurrences in this template) -->
     <xpath expr="//span[text()='Course Locked']/text()" position="replace">Documents Locked</xpath>
+    <!-- "You're enrolled" banner when already a member -->
+    <xpath expr="//button[contains(@class,'o_wslides_js_channel_unsubscribe')]//h6/text()" position="replace">
+      You have access to these documents
+    </xpath>
   </template>
 
-  <!-- 4) Main page strings: error/invite/prereq and tab label -->
+  <!-- 4) Main page strings: error/invite/prereq wording and the “Course” tab label -->
   <template id="concejo_course_main_text_docs" inherit_id="website_slides.course_main">
-    <!-- Access error banner: only replace the leading text, keep the <t t-out="..."/> intact -->
-    <xpath expr="//div[contains(@class,'alert-danger')][contains(., 'You need to join this course')]/text()"
-           position="replace">You need access to these documents to open "</xpath>
-
-    <!-- Invite banner -->
-    <xpath expr="//div[contains(@class,'notification_banner')][contains(., 'You have been invited to this course.')]/text()"
-           position="replace">You have been invited to these documents.</xpath>
-
-    <!-- Prerequisites link (list of required 'courses') -->
+    <!-- Access error banner: keep the trailing quote and the t-out name -->
+    <xpath expr="//div[contains(@class,'alert-danger')]/text()[contains(., 'You need to join this course')]" position="replace">
+      You need access to these documents to open "
+    </xpath>
+    <!-- Invite banner lead-in text -->
+    <xpath expr="//div[contains(@class,'notification_banner')]/text()[contains(., 'You have been invited to this course.')]" position="replace">
+      You have been invited to these documents.
+    </xpath>
+    <!-- Prerequisite link word (“courses” → “documents”) -->
     <xpath expr="//a[contains(@class,'o_wslides_js_prerequisite_course')]/text()" position="replace">documents</xpath>
-
-    <!-- Tab label: 'Course' ➜ 'Documents' -->
+    <!-- Tab label text (“Course” → “Documents”), leaves the icon intact -->
     <xpath expr="//a[@id='home-tab']/text()[normalize-space()='Course']" position="replace">Documents</xpath>
   </template>
 
