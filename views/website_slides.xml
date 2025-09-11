@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+  <!-- 1) Header + search: "Courses" ➜ "Documents"; "Search courses" ➜ "Search documents" -->
+  <template id="concejo_course_nav_docs" inherit_id="website_slides.course_nav">
+    <!-- Breadcrumb link -->
+    <xpath expr="//nav//a[@href='/slides']/text()" position="replace">Documents</xpath>
+    <xpath expr="//nav//a[@href='/slides']" position="attributes">
+      <attribute name="title">Documents</attribute>
+    </xpath>
+    <!-- Search placeholder -->
+    <xpath expr="//t[@t-set='placeholder']/text()" position="replace">Search documents</xpath>
+  </template>
+
+  <!-- 2) Generic join link used from various places -->
+  <template id="concejo_join_course_link_docs" inherit_id="website_slides.join_course_link">
+    <xpath expr="//a[contains(@class,'o_wslides_js_course_join_link')]/text()" position="replace">
+      Access the Documents
+    </xpath>
+  </template>
+
+  <!-- 3) Sidebar CTA block on the course (documents) page -->
+  <template id="concejo_course_join_cta_docs" inherit_id="website_slides.course_join">
+    <!-- Button attributes -->
+    <xpath expr="//a[contains(@class,'o_wslides_js_course_join_link')]" position="attributes">
+      <attribute name="title">Access the Documents</attribute>
+      <attribute name="aria-label">Access the Documents</attribute>
+    </xpath>
+    <!-- Button label (covers both 'Start this Course' and 'Join this Course') -->
+    <xpath expr="//span[contains(@class,'cta-title')]" position="replace">
+      <span class="cta-title text_small_caps">Access the Documents</span>
+    </xpath>
+    <!-- Lock banner title -->
+    <xpath expr="//span[text()='Course Locked']/text()" position="replace">Documents Locked</xpath>
+  </template>
+
+  <!-- 4) Main page strings: error/invite/prereq and tab label -->
+  <template id="concejo_course_main_text_docs" inherit_id="website_slides.course_main">
+    <!-- Access error banner: only replace the leading text, keep the <t t-out="..."/> intact -->
+    <xpath expr="//div[contains(@class,'alert-danger')][contains(., 'You need to join this course')]/text()"
+           position="replace">You need access to these documents to open "</xpath>
+
+    <!-- Invite banner -->
+    <xpath expr="//div[contains(@class,'notification_banner')][contains(., 'You have been invited to this course.')]/text()"
+           position="replace">You have been invited to these documents.</xpath>
+
+    <!-- Prerequisites link (list of required 'courses') -->
+    <xpath expr="//a[contains(@class,'o_wslides_js_prerequisite_course')]/text()" position="replace">documents</xpath>
+
+    <!-- Tab label: 'Course' ➜ 'Documents' -->
+    <xpath expr="//a[@id='home-tab']/text()[normalize-space()='Course']" position="replace">Documents</xpath>
+  </template>
+
+</odoo>
