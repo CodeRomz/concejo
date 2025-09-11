@@ -33,7 +33,8 @@
      t-inherit-mode="extension">
 
     <!-- Subscription checkbox label -->
-    <xpath expr="//t[contains(@t-if,'state.mode') and contains(@t-if,'subscription')]//CheckBox[@name='subscribed']" position="replace">
+    <xpath expr="//t[contains(@t-if,'state.mode') and contains(@t-if,'subscription')]//CheckBox[@name='subscribed']"
+           position="replace">
       <CheckBox value="isChecked" name="subscribed" onChange="(isChecked) => this.onChangeCheckbox(isChecked)">
         Be notified when new documents are added.
       </CheckBox>
@@ -41,18 +42,31 @@
 
     <!-- Leave confirmation texts -->
     <xpath expr="//t[contains(@t-if,'state.mode') and contains(@t-if,'leave')]/p[1]" position="replace">
-      <p>Do you really want to leave these module?</p>
+      <p>Do you really want to leave these documents?</p>
     </xpath>
     <xpath expr="//t[contains(@t-if,'state.mode') and contains(@t-if,'leave')]/p[2]" position="replace">
-      <p>All progress will be lost until you rejoin these module.</p>
+      <p>All progress will be lost until you rejoin these documents.</p>
     </xpath>
 
     <!-- Footer buttons -->
-    <xpath expr="//t[@t-set-slot='footer']/t[contains(@t-if,'subscription')]//button[contains(@class,'btn-danger')]" position="replace">
-      <button class="btn btn-danger ms-auto" t-att-disabled="state.buttonDisabled" t-on-click="() => this.onClickLeaveCourse()">or Leave the documents</button>
+    <xpath expr="//t[@t-set-slot='footer']/t[contains(@t-if,'subscription')]//button[contains(@class,'btn-danger')]"
+           position="replace">
+      <button class="btn btn-danger ms-auto" t-att-disabled="state.buttonDisabled"
+              t-on-click="() => this.onClickLeaveCourse()">or Leave the documents</button>
     </xpath>
     <xpath expr="//t[@t-set-slot='footer']/t[contains(@t-if,'leave')]/button[1]" position="replace">
-      <button class="btn btn-danger" t-att-disabled="state.buttonDisabled" t-on-click="() => this.onClickLeaveCourseSubmit()">Leave the documents</button>
+      <button class="btn btn-danger" t-att-disabled="state.buttonDisabled"
+              t-on-click="() => this.onClickLeaveCourseSubmit()">Leave the documents</button>
+    </xpath>
+  </t>
+
+  <!-- D) Unsubscribe dialog: title for leave mode -->
+  <t t-name="concejo.SlideUnsubscribeDialog.inherit.title"
+     t-inherit="website_slides.SlideUnsubscribeDialog"
+     t-inherit-mode="extension">
+    <xpath expr="//Dialog" position="attributes">
+      <!-- Only change the title when leaving; preserve original title otherwise -->
+      <attribute name="title">state.mode === 'leave' ? 'Leave the documents' : state.title</attribute>
     </xpath>
   </t>
 
