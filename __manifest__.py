@@ -25,6 +25,7 @@
     'assets': {
         'web.assets_frontend': [
             'concejo/static/src/scss/concejo_style_frontend.scss',
+            'concejo/static/src/js/public/components/website_slides_dialogs_inherit.xml'
         ]
     },
 
