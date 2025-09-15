@@ -11,7 +11,7 @@ class ResUsers(models.Model):
         try:
             return {
                 'type': 'ir.actions.act_url',
-                'url': '/',
+                'url': '/slides/all',
                 'target': 'self',
             }
         except Exception as e:
