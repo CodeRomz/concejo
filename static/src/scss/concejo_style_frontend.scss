@@ -12,3 +12,19 @@
   border: 1px solid white !important;
 }
 //
+
+//Switch Logo Icon frontend/backend
+.o_frontend_to_backend_nav .o_frontend_to_backend_apps_btn {
+    background-color: #004d7a;
+}
+
+.o_frontend_to_backend_nav .o_frontend_to_backend_apps_btn:hover {
+    color: #333333;
+    background-color: #004d7a;
+}
+
+.o_frontend_to_backend_nav::before {
+    border-top: 20px solid #004d7a;
+    border-left: 20px solid #004d7a;
+}
+//
