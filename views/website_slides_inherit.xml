@@ -1,60 +1,70 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
 
-  <!-- 1) Header + search -->
-  <template id="concejo_course_nav_docs" inherit_id="website_slides.course_nav">
-    <xpath expr="//ol[contains(concat(' ', normalize-space(@class), ' '), ' breadcrumb ')]//a[@href='/slides']" position="replace">
-      <a href="/slides" title="Documents">Documents</a>
-    </xpath>
-    <xpath expr="//t[@t-set='placeholder']" position="replace">
-      <t t-set="placeholder">Search documents</t>
-    </xpath>
-  </template>
+    <!-- 1) Header + search -->
+    <template id="concejo_course_nav_docs" inherit_id="website_slides.course_nav">
+        <xpath expr="//ol[contains(concat(' ', normalize-space(@class), ' '), ' breadcrumb ')]//a[@href='/slides']"
+               position="replace">
+            <a href="/slides" title="Documents">Documents</a>
+        </xpath>
+        <xpath expr="//t[@t-set='placeholder']" position="replace">
+            <t t-set="placeholder">Search documents</t>
+        </xpath>
+    </template>
 
-  <!-- 2) Generic join link -->
-  <template id="concejo_join_course_link_docs" inherit_id="website_slides.join_course_link">
-    <xpath expr="//a[contains(concat(' ', normalize-space(@class), ' '), ' o_wslides_js_course_join_link ')]" position="replace">
-      <a class="o_wslides_js_course_join_link" href="#"
-         t-att-data-channel-enroll="slide.channel_id.enroll"
-         t-att-data-channel-id="slide.channel_id.id">
-        Access the Documents
-      </a>
-    </xpath>
-  </template>
+    <!-- 2) Generic join link -->
+    <template id="concejo_join_course_link_docs" inherit_id="website_slides.join_course_link">
+        <xpath expr="//a[contains(concat(' ', normalize-space(@class), ' '), ' o_wslides_js_course_join_link ')]"
+               position="replace">
+            <a class="o_wslides_js_course_join_link" href="#"
+               t-att-data-channel-enroll="slide.channel_id.enroll"
+               t-att-data-channel-id="slide.channel_id.id">
+                Access the Documents
+            </a>
+        </xpath>
+    </template>
 
-  <!-- 3) Sidebar CTA / enrolled / lock / prerequisites -->
-  <template id="concejo_course_join_cta_docs" inherit_id="website_slides.course_join">
-    <xpath expr="//a[contains(concat(' ', normalize-space(@class), ' '), ' o_wslides_js_course_join_link ')]" position="attributes">
-      <attribute name="title">Access the Documents</attribute>
-      <attribute name="aria-label">Access the Documents</attribute>
-    </xpath>
-    <xpath expr="//a[contains(concat(' ', normalize-space(@class), ' '), ' o_wslides_js_course_join_link ')]//span[contains(@class,'cta-title')]" position="replace">
-      <span class="cta-title text_small_caps">Access the Documents</span>
-    </xpath>
-    <xpath expr="//span[normalize-space()='Course Locked']" position="replace">
-      <span>Documents Locked</span>
-    </xpath>
-    <xpath expr="//button[contains(concat(' ', normalize-space(@class), ' '), ' o_wslides_js_channel_unsubscribe ')]//h6" position="replace">
-      <h6 class="d-flex flex-grow-1 my-0">You have access to these documents</h6>
-    </xpath>
-    <xpath expr="//a[contains(concat(' ', normalize-space(@class), ' '), ' o_wslides_js_prerequisite_course ')]" position="replace">
-      <a href="#" class="o_wslides_js_prerequisite_course"
-         t-att-data-channels="json.dumps(
+    <!-- 3) Sidebar CTA / enrolled / lock / prerequisites -->
+    <template id="concejo_course_join_cta_docs" inherit_id="website_slides.course_join">
+        <xpath expr="//a[contains(concat(' ', normalize-space(@class), ' '), ' o_wslides_js_course_join_link ')]"
+               position="attributes">
+            <attribute name="title">Access the Documents</attribute>
+            <attribute name="aria-label">Access the Documents</attribute>
+        </xpath>
+        <xpath expr="//a[contains(concat(' ', normalize-space(@class), ' '), ' o_wslides_js_course_join_link ')]//span[contains(@class,'cta-title')]"
+               position="replace">
+            <span class="cta-title text_small_caps">Access the Documents</span>
+        </xpath>
+        <xpath expr="//span[normalize-space()='Course Locked']" position="replace">
+            <span>Documents Locked</span>
+        </xpath>
+        <xpath expr="//button[contains(concat(' ', normalize-space(@class), ' '), ' o_wslides_js_channel_unsubscribe ')]//h6"
+               position="replace">
+            <h6 class="d-flex flex-grow-1 my-0">You have access to these documents</h6>
+        </xpath>
+        <xpath expr="//a[contains(concat(' ', normalize-space(@class), ' '), ' o_wslides_js_prerequisite_course ')]"
+               position="replace">
+            <a href="#" class="o_wslides_js_prerequisite_course"
+               t-att-data-channels="json.dumps(
            [{'course_id': course.id, 'course_name': course.name}
             for course in channel.prerequisite_channel_ids]
-         )">documents</a>
-    </xpath>
-  </template>
+         )">documents
+            </a>
+        </xpath>
+    </template>
 
-  <!-- 4) Main tab label -->
-  <template id="concejo_course_main_docs" inherit_id="website_slides.course_main">
-    <xpath expr="//a[@id='home-tab']" position="replace">
-      <a t-att-class="'nav-link %s' % ('active' if active_tab == 'home' else '')"
-         id="home-tab" data-bs-toggle="pill" href="#home" role="tab" aria-controls="home"
-         t-att-aria-selected="'true' if active_tab == 'home' else 'false'">
-        <i class="fa fa-home"/> Documents
-      </a>
-    </xpath>
-  </template>
+    <!-- 4) Main tab label -->
+    <template id="concejo_course_main_docs" inherit_id="website_slides.course_main">
+        <xpath expr="//a[@id='home-tab']" position="replace">
+            <a t-att-class="'nav-link %s' % ('active' if active_tab == 'home' else '')"
+               id="home-tab" data-bs-toggle="pill" href="#home" role="tab" aria-controls="home"
+               t-att-aria-selected="'true' if active_tab == 'home' else 'false'">
+                <i class="fa fa-home"/>
+                Documents
+            </a>
+        </xpath>
+    </template>
+
+    <template id="courses_all" name="All Documents" inherit_id="website_slides.courses_all"/>
 
 </odoo>
