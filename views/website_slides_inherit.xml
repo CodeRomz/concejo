@@ -64,22 +64,54 @@
             </a>
         </xpath>
     </template>
-<!-- =========================================================================================== -->
-    <!-- =========================================
-        HOME: website_slides.courses_home
-        ========================================= -->
+
+    <!-- =========================================================================================== -->
+
+    <!-- HOME: courses_home  -->
     <template id="override_courses_home_copy"
-              name="Docs: Home copy/labels"
               inherit_id="website_slides.courses_home"
+              name="Docs: Home copy/labels"
               priority="20">
 
+        <!-- Banner H2 -->
+        <xpath expr="//section[contains(concat(' ', normalize-space(@class), ' '), ' s_banner ')][contains(concat(' ', normalize-space(@class), ' '), ' overflow-hidden ')]//h2"
+               position="replace">
+            <h2 class="mb-4">Start exploring documents today!</h2>
+        </xpath>
+
+        <!-- Banner paragraph under the H2 -->
+        <xpath expr="//section[contains(concat(' ', normalize-space(@class), ' '), ' s_banner ')][contains(concat(' ', normalize-space(@class), ' '), ' overflow-hidden ')]//div[contains(concat(' ', normalize-space(@class), ' '), ' row ')][contains(@class,'mt-1')][contains(@class,'mb-3')]//p"
+               position="replace">
+            <p>Skill up and have an impact! Your business career starts here.<br/>Time to start a document.
+            </p>
+        </xpath>
+
+        <!-- Search placeholder in navbar -->
+        <xpath expr="//nav[contains(concat(' ', normalize-space(@class), ' '), ' navbar ')]//t[@t-set='placeholder']"
+               position="replace">
+            <t t-set="placeholder">Search documents</t>
+        </xpath>
 
         <!-- 'All courses' link -->
-        <xpath expr="//a[@class='nav-link nav-link me-md-2 o_wslides_home_all_slides']"
+        <xpath expr="//a[contains(concat(' ', normalize-space(@class), ' '), ' o_wslides_home_all_slides ')]"
                position="replace">
             <a class="nav-link nav-link me-md-2 o_wslides_home_all_slides" href="/slides/all">
                 <i class="fa fa-graduation-cap me-1"/>All documents
             </a>
+        </xpath>
+
+        <!-- Empty state (no popular channels) -->
+        <xpath expr="//div[contains(concat(' ', normalize-space(@class), ' '), ' o_wslides_home_content_section ')][@t-if='not channels_popular']//p[@class='h2']"
+               position="replace">
+            <p class="h2">No Document created yet.</p>
+        </xpath>
+
+        <!-- Officer hint in empty state -->
+        <xpath expr="//div[contains(concat(' ', normalize-space(@class), ' '), ' o_wslides_home_content_section ')][@t-if='not channels_popular']//p[@groups='website_slides.group_website_slides_officer']"
+               position="replace">
+            <p groups="website_slides.group_website_slides_officer">Click on "New" in the top-right corner to create
+                your first document.
+            </p>
         </xpath>
 
         <!-- Section titles -->
@@ -91,6 +123,67 @@
         </xpath>
         <xpath expr="//h5[normalize-space()='Newest courses']" position="replace">
             <h5 class="m-0">Newest documents</h5>
+        </xpath>
+    </template>
+
+    <!-- ALL: courses_all -->
+    <template id="override_courses_all_copy"
+              inherit_id="website_slides.courses_all"
+              name="Docs: All headers/search/empty"
+              priority="20">
+
+        <!-- Banner H1 (My Courses branch) -->
+        <xpath expr="//div[contains(concat(' ', normalize-space(@class), ' '), ' oe_structure ')][@t-if='search_my']//h1"
+               position="replace">
+            <h1 class="display-3 mb-0 text-white">My Documents</h1>
+        </xpath>
+
+        <!-- Banner H1 (All Courses branch) -->
+        <xpath expr="//div[contains(concat(' ', normalize-space(@class), ' '), ' oe_structure ')][@t-else='']//h1"
+               position="replace">
+            <h1 class="display-3 mb-0 text-white">All Documents</h1>
+        </xpath>
+
+        <!-- Search placeholders (both search boxes) -->
+        <xpath expr="//t[@t-set='placeholder' and contains(normalize-space(.), 'Search courses')]"
+               position="replace">
+            <t t-set="placeholder">Search documents</t>
+        </xpath>
+
+        <!-- Tag chip: 'My Courses' -->
+        <xpath expr="//t[@t-if='search_my']/span[contains(concat(' ', normalize-space(@class), ' '), ' d-inline-flex ')]"
+               position="replace">
+            <span class="align-items-baseline border d-inline-flex ps-2 rounded mb-2">
+                <i class="fa fa-tag me-2 text-muted"/>
+                My Documents
+                <span t-att-data-post="slide_query_url(tag=slugify_tags(search_tags.ids), search=search_term, prevent_redirect=True)"
+                      class="post_link cursor-pointer btn border-0 py-1">&#215;
+                </span>
+            </span>
+        </xpath>
+
+        <!-- Empty states & alerts -->
+        <xpath expr="//div[@t-if='not channels and not search_term and not search_slide_category and not search_my and not search_tags']/p[@class='h2']"
+               position="replace">
+            <p class="h2">No Document created yet.</p>
+        </xpath>
+
+        <xpath expr="//div[@class='alert alert-info mb-5' and @t-elif='search_term and not channels']"
+               position="replace">
+            <div class="alert alert-info mb-5">
+                No document was found matching your search
+                <code>
+                    <t t-esc="search_term"/>
+                </code>
+                .
+            </div>
+        </xpath>
+
+        <xpath expr="//div[@class='alert alert-info mb-5' and @t-elif='not channels']"
+               position="replace">
+            <div class="alert alert-info mb-5">
+                No document was found matching your search.
+            </div>
         </xpath>
     </template>
 
