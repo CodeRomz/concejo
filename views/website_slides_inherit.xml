@@ -65,20 +65,21 @@
         </xpath>
     </template>
 
-    <!-- =========================================
-         HOME: /slides  (website_slides.courses_home)
-         ========================================= -->
-    <template id="override_courses_home_hero_h2"
-              name="Docs: Home banner H2"
+    <!-- ==============================
+     HOME: website_slides.courses_home
+     ============================== -->
+    <template id="override_courses_home_copy"
+              name="Docs: Home copy/labels"
               inherit_id="website_slides.courses_home"
               priority="20">
-        <!-- Start your online course today! -> Start exploring documents today! -->
-        <xpath expr="//section[contains(@class,'s_banner')]//h2[text()='Start your online course today!']"
+
+        <!-- Banner H2: 'Start your online course today!' -> 'Start exploring documents today!' -->
+        <xpath expr="//section[contains(@class,'s_banner')]//h2[normalize-space()='Start your online course today!']"
                position="replace">
             <h2 class="mb-4">Start exploring documents today!</h2>
         </xpath>
 
-        <!-- 'Time to start a course.' -> 'Time to start a document.' -->
+        <!-- Banner paragraph: contains 'Time to start a course.' -->
         <xpath expr="//section[contains(@class,'s_banner')]//p[contains(., 'Time to start a course.')]"
                position="replace">
             <p>Skill up and have an impact! Your business career starts here.<br/>Time to start a document.
@@ -86,12 +87,12 @@
         </xpath>
 
         <!-- Search placeholder: 'Search courses' -> 'Search documents' -->
-        <xpath expr="//t[@t-set='placeholder' and normalize-space(text())='Search courses']"
+        <xpath expr="//t[@t-set='placeholder' and normalize-space()='Search courses']"
                position="replace">
             <t t-set="placeholder">Search documents</t>
         </xpath>
 
-        <!-- "All courses" link in navbar -->
+        <!-- Navbar link: 'All courses' -> 'All documents' -->
         <xpath expr="//a[contains(@class,'o_wslides_home_all_slides')]"
                position="replace">
             <a class="nav-link nav-link me-md-2 o_wslides_home_all_slides" href="/slides/all">
@@ -99,82 +100,82 @@
             </a>
         </xpath>
 
-        <!-- Empty state: No Course created yet. -->
-        <xpath expr="//p[@class='h2' and normalize-space(text())='No Course created yet.']"
+        <!-- Empty state on home -->
+        <xpath expr="//div[contains(@class,'o_wslides_home_content_section') and @t-if='not channels_popular']//p[@class='h2' and normalize-space()='No Course created yet.']"
                position="replace">
             <p class="h2">No Document created yet.</p>
         </xpath>
-        <!-- Officer hint -->
-        <xpath expr="//p[@groups='website_slides.group_website_slides_officer' and contains(., 'write your first course.')]"
+        <xpath expr="//div[contains(@class,'o_wslides_home_content_section') and @t-if='not channels_popular']//p[@groups='website_slides.group_website_slides_officer']"
                position="replace">
             <p groups="website_slides.group_website_slides_officer">Click on "New" in the top-right corner to create
                 your first document.
             </p>
         </xpath>
 
-        <!-- Section titles -->
-        <xpath expr="//h5[normalize-space(text())='My courses']" position="replace">
+        <!-- Section titles on home -->
+        <xpath expr="//h5[normalize-space()='My courses']" position="replace">
             <h5 class="m-0">My documents</h5>
         </xpath>
-        <xpath expr="//h5[normalize-space(text())='Most popular courses']" position="replace">
+        <xpath expr="//h5[normalize-space()='Most popular courses']" position="replace">
             <h5 class="m-0">Most popular documents</h5>
         </xpath>
-        <xpath expr="//h5[normalize-space(text())='Newest courses']" position="replace">
+        <xpath expr="//h5[normalize-space()='Newest courses']" position="replace">
             <h5 class="m-0">Newest documents</h5>
         </xpath>
     </template>
 
-    <!-- =========================================
-         ALL: /slides/all  (website_slides.courses_all)
-         ========================================= -->
-    <template id="override_courses_all_headers"
-              name="Docs: All banners and search"
+    <!-- ==============================
+         ALL: website_slides.courses_all
+         ============================== -->
+    <template id="override_courses_all_copy"
+              name="Docs: All headers/search/empty states"
               inherit_id="website_slides.courses_all"
               priority="20">
 
-        <!-- Banners -->
-        <xpath expr="//div[contains(@class,'oe_structure')][@t-if='search_my']//h1[text()='My Courses']"
+        <!-- Banner H1s -->
+        <xpath expr="//div[@class='oe_structure oe_empty' and @t-if='search_my']//h1[normalize-space()='My Courses']"
                position="replace">
             <h1 class="display-3 mb-0 text-white">My Documents</h1>
         </xpath>
-        <xpath expr="//div[contains(@class,'oe_structure')][@t-else='']//h1[text()='All Courses']"
+        <xpath expr="//div[@class='oe_structure oe_empty' and @t-else='']//h1[normalize-space()='All Courses']"
                position="replace">
             <h1 class="display-3 mb-0 text-white">All Documents</h1>
         </xpath>
 
-        <!-- Search placeholders (mobile & desktop) -->
-        <xpath expr="//t[@t-set='placeholder' and normalize-space(text())='Search courses']"
+        <!-- Search placeholders (mobile & desktop): replace any occurrence -->
+        <xpath expr="//t[@t-set='placeholder' and normalize-space()='Search courses']"
                position="replace">
             <t t-set="placeholder">Search documents</t>
         </xpath>
 
-        <!-- Tag chip 'My Courses' -->
-        <xpath expr="//span[contains(@class,'d-inline-flex')]/text()[normalize-space(.)='My Courses']"
+        <!-- Tag chip: 'My Courses' -->
+        <xpath expr="//t[@t-if='search_my']/span[contains(@class,'d-inline-flex')]"
                position="replace">
-            My Documents
+            <span class="align-items-baseline border d-inline-flex ps-2 rounded mb-2">
+                <i class="fa fa-tag me-2 text-muted"/>
+                My Documents
+                <span t-att-data-post="slide_query_url(tag=slugify_tags(search_tags.ids), search=search_term, prevent_redirect=True)"
+                      class="post_link cursor-pointer btn border-0 py-1">&#215;
+                </span>
+            </span>
         </xpath>
 
-        <!-- Empty states & alerts -->
-        <xpath expr="//div[@class='container o_wslides_home_main pb-5']//p[@class='h2' and normalize-space(text())='No Course created yet.']"
+        <!-- Empty states -->
+        <xpath expr="//div[@class='container o_wslides_home_main pb-5']//p[@class='h2' and normalize-space()='No Course created yet.']"
                position="replace">
             <p class="h2">No Document created yet.</p>
         </xpath>
 
-        <xpath expr="//div[@class='alert alert-info mb-5' and contains(., 'No course was found matching your search ')]"
+        <xpath expr="//div[@class='container o_wslides_home_main pb-5']/div[@class='alert alert-info mb-5' and contains(normalize-space(.), 'No course was found matching your search')]"
                position="replace">
             <div class="alert alert-info mb-5">
                 No document was found matching your search
-                <code>
-                    <t t-esc="search_term"/>
-                </code>
-                .
-            </div>
-        </xpath>
-
-        <xpath expr="//div[@class='alert alert-info mb-5' and normalize-space(.)='No course was found matching your search.']"
-               position="replace">
-            <div class="alert alert-info mb-5">
-                No document was found matching your search.
+                <t t-if="search_term">
+                    <code>
+                        <t t-esc="search_term"/>
+                    </code>
+                </t>
+                <t t-else=""/>
             </div>
         </xpath>
     </template>
