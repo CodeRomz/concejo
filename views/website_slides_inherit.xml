@@ -75,19 +75,6 @@
               inherit_id="website_slides.courses_home"
               priority="50">
 
-        <!-- Banner H2: 'Start your online course today!' -->
-        <xpath expr=".//section[@class='s_banner overflow-hidden']//h2[@class='mb-4']"
-               position="replace">
-            <h2 class="mb-4">Start exploring documents today!</h2>
-        </xpath>
-
-        <!-- Banner paragraph: 'Time to start a course.' -->
-        <xpath expr=".//section[@class='s_banner overflow-hidden']//div[contains(@class,'row') and contains(@class,'mt-1') and contains(@class,'mb-3')]//p"
-               position="replace">
-            <p>Skill up and have an impact! Your business career starts here.<br/>Time to start a document.
-            </p>
-        </xpath>
-
         <!-- Search placeholder: 'Search courses' -->
         <xpath expr=".//nav[contains(@class,'navbar')]//t[@t-set='placeholder']"
                position="replace">
