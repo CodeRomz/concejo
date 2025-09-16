@@ -65,11 +65,7 @@
         </xpath>
     </template>
 
-    <!-- =========================================================================================== -->
-
-    <!-- =========================================
-     HOME: website_slides.courses_home
-     ========================================= -->
+    <!-- ==================================== HOME: website_slides.courses_home ==================================== -->
     <template id="override_courses_home_copy"
               name="Docs: Home copy/labels"
               inherit_id="website_slides.courses_home"
@@ -110,75 +106,6 @@
         </xpath>
         <xpath expr=".//h5[normalize-space(.)='Newest courses']" position="replace">
             <h5 class="m-0">Newest documents</h5>
-        </xpath>
-    </template>
-
-    <!-- =========================================
-         ALL: website_slides.courses_all
-         ========================================= -->
-    <template id="override_courses_all_copy"
-              name="Docs: All headers/search/empty states"
-              inherit_id="website_slides.courses_all"
-              priority="50">
-
-        <!-- Banner titles -->
-        <xpath expr=".//div[contains(@class,'oe_structure')][@t-if='search_my']//section[contains(@class,'s_banner')]//h1"
-               position="replace">
-            <h1 class="display-3 mb-0 text-white">My Documents</h1>
-        </xpath>
-        <xpath expr=".//div[contains(@class,'oe_structure')][@t-else='']//section[contains(@class,'s_banner')]//h1"
-               position="replace">
-            <h1 class="display-3 mb-0 text-white">All Documents</h1>
-        </xpath>
-
-        <!-- Search placeholders (mobile + desktop) -->
-        <xpath expr=".//t[@t-call='website.website_search_box_input'][.//t[@t-set='_form_classes' and @t-valuef='o_wslides_nav_navbar_right d-md-none']]//t[@t-set='placeholder']"
-               position="replace">
-            <t t-set="placeholder">Search documents</t>
-        </xpath>
-        <xpath expr=".//t[@t-call='website.website_search_box_input'][.//t[@t-set='_form_classes' and @t-valuef='o_wslides_nav_navbar_right d-none d-md-flex']]//t[@t-set='placeholder']"
-               position="replace">
-            <t t-set="placeholder">Search documents</t>
-        </xpath>
-
-        <!-- Tag chip: 'My Courses' -->
-        <xpath expr=".//t[@t-if='search_my']/span[contains(concat(' ', normalize-space(@class), ' '), ' d-inline-flex ')]"
-               position="replace">
-            <span class="align-items-baseline border d-inline-flex ps-2 rounded mb-2">
-                <i class="fa fa-tag me-2 text-muted"/>
-                My Documents
-                <span t-att-data-post="slide_query_url(tag=slugify_tags(search_tags.ids), search=search_term, prevent_redirect=True)"
-                      class="post_link cursor-pointer btn border-0 py-1">&#215;
-                </span>
-            </span>
-        </xpath>
-
-        <!-- Empty states & alerts -->
-        <xpath expr=".//div[@t-if='not channels and not search_term and not search_slide_category and not search_my and not search_tags']/p[@class='h2']"
-               position="replace">
-            <p class="h2">No Document created yet.</p>
-        </xpath>
-        <xpath expr=".//div[@t-if='not channels and not search_term and not search_slide_category and not search_my and not search_tags']/p[@groups='website_slides.group_website_slides_officer']"
-               position="replace">
-            <p groups="website_slides.group_website_slides_officer">Click on "New" in the top-right corner to create
-                your first document.
-            </p>
-        </xpath>
-        <xpath expr=".//div[@class='alert alert-info mb-5' and @t-elif='search_term and not channels']"
-               position="replace">
-            <div class="alert alert-info mb-5">
-                No document was found matching your search
-                <code>
-                    <t t-esc="search_term"/>
-                </code>
-                .
-            </div>
-        </xpath>
-        <xpath expr=".//div[@class='alert alert-info mb-5' and @t-elif='not channels']"
-               position="replace">
-            <div class="alert alert-info mb-5">
-                No document was found matching your search.
-            </div>
         </xpath>
     </template>
 
